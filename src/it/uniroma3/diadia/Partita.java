@@ -19,16 +19,22 @@ public class Partita {
 	private Labirinto mappa;
 	private Stanza stanzaCorrente;
 	private boolean finita;
-	
+	private IO IO;
 
 
-	public Partita(){
+	public Partita(IO IO){
 		this.mappa= new Labirinto();
+		mappa.creaStanze();
 		this.player= new Giocatore();
 		this.stanzaCorrente=mappa.getStanzaIniziale();
 		this.finita = false;
-		
+		this.IO= IO;
 
+	}
+
+
+	public IO getIO() {
+		return IO;
 	}
 
 
@@ -68,6 +74,11 @@ public class Partita {
 		this.finita = true;
 	}
 
+	public boolean giocatoreIsVivo() {
+		if(this.player.getCfu()!=0)
+			return true;
+		else return false;
+	}
 
 
 }

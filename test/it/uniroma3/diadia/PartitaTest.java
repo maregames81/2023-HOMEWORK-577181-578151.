@@ -11,10 +11,11 @@ class PartitaTest {
 	
 	private Partita partita;
 	private Stanza corrente;
+	private IO IO;
 	
 	@BeforeEach
 	public void setUp() {
-		this.partita= new Partita();
+		this.partita= new Partita(IO);
 		this.corrente= new Stanza("corrente");
 	}
 

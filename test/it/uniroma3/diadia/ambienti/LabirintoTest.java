@@ -19,12 +19,8 @@ class LabirintoTest {
 	}
 	@Test
 	void testGetStanzaVincente() {
-		assertTrue(this.stanzaIniziale.equals(mappa))
+		assertTrue(this.stanzaVincente.equals(mappa.getStanzaVincente()));
 	}
 
-	@Test
-	void testGetStanzaIniziale() {
-		fail("Not yet implemented");
-	}
 
 }
