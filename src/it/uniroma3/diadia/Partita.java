@@ -22,9 +22,9 @@ public class Partita {
 	private IO IO;
 
 
-	public Partita(IO IO){
-		this.mappa= new Labirinto();
-		mappa.creaStanze();
+	public Partita(Labirinto labirinto,IO IO){
+		this.mappa= labirinto;
+		//mappa.creaStanze();
 		this.player= new Giocatore();
 		this.stanzaCorrente=mappa.getStanzaIniziale();
 		this.finita = false;

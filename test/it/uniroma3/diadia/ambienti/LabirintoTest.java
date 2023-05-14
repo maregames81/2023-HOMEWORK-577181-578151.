@@ -13,7 +13,10 @@ class LabirintoTest {
 	
 	@BeforeEach
 	public void setUp() {
-		this.mappa= new Labirinto();
+		this.mappa= new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addStanzaVincente("Atrio")
+				.getLabirinto();
 		this.stanzaIniziale= this.mappa.getStanzaIniziale();
 		this.stanzaVincente= this.mappa.getStanzaVincente();
 	}

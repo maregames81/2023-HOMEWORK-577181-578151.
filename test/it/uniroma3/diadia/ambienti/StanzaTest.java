@@ -20,7 +20,6 @@ class StanzaTest {
 		this.nonVuota= new Stanza("non-vuota");
 		this.osso = new Attrezzo("osso", 1);
 		this.nonVuota.addAttrezzo(osso);
-		System.out.println("So eseguendo il setup");
 	}
 
 	@Test
