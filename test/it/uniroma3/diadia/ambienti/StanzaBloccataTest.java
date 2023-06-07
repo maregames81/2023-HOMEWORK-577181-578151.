@@ -10,41 +10,46 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaBloccataTest {
 	
-	private StanzaBloccata stanza;
-	private Attrezzo lanterna;
+	private StanzaBloccata sb;
 	private Stanza s;
+	private Attrezzo a;
 	
 	@BeforeEach
-	public void setUp() {
-		this.stanza = new StanzaBloccata("StanzaBuia", "sud","lanterna");
-		this.s= new Stanza("s");
-		this.lanterna = new Attrezzo("lanterna", 1);
-		this.stanza.impostaStanzaAdiacente("sud", s);
+	public void setUp() throws Exception {
+		sb = new StanzaBloccata("StanzaBloccata", Direzione.ovest, "grimaldello");
+		s = new Stanza("Stanzetta");
+		a = new Attrezzo("grimaldello", 1);
+		sb.impostaStanzaAdiacente(Direzione.ovest, s);
+		
 	}
 
+	
+
 	@Test
-	void testGetStanzaAdiacenteBloccata() {
-		assertEquals(stanza,stanza.getStanzaAdiacente("sud"));
+	public void testGetStanzaAdiacenteDirezioneBloccata() {
+		assertEquals(sb, sb.getStanzaAdiacente(Direzione.ovest));
 	}
 	
 	@Test
-	void testGetStanzaAdiacente() {
-		stanza.addAttrezzo(lanterna);
-		assertEquals(s,stanza.getStanzaAdiacente("sud"));
+	public void testGetStanzaAdiacenteDirezioneSbloccata() {
+		sb.addAttrezzo(a);
+		assertEquals(s, sb.getStanzaAdiacente(Direzione.ovest));
+		
 	}
 
 	@Test
-	void testGetDescrizione() {
-		stanza.addAttrezzo(lanterna);
-		assertEquals(stanza.toString(),stanza.getDescrizione());
+	public void testGetDescrizioneDirezioneSbloccata() {
+		sb.addAttrezzo(a);
+		assertEquals(sb.toString(), sb.getDescrizione());
 	}
 	
 	@Test
-	void testGetDescrizioneBloccata() {
-		stanza.addAttrezzo(lanterna);
-		String bloccata= stanza.getDescrizione();
-		stanza.removeAttrezzo(lanterna);
-		assertFalse(bloccata.equals(stanza.getDescrizione()));
+	public void testGetDescrizioneDirezioneBloccata() {
+		String e = "Stanza bloccata nella direzione: ovest"+"\nPrendi il grimaldello e posalo nella stanza";
+		assertEquals(e, sb.getDescrizione());
+		
 	}
+
+	
 
 }

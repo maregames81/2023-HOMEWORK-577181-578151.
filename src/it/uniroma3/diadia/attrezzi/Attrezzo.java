@@ -14,6 +14,13 @@ package it.uniroma3.diadia.attrezzi;
  */
 public class Attrezzo {
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
 	private String nome;
 	private int peso;
 

@@ -81,4 +81,10 @@ public class Partita {
 	}
 
 
+	public Labirinto getLabirinto() {
+		// TODO Auto-generated method stub
+		return mappa;
+	}
+
+
 }

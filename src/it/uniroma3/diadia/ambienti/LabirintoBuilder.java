@@ -1,12 +1,10 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilder {
@@ -15,8 +13,8 @@ public class LabirintoBuilder {
 	private Stanza ultimaStanzaAggiunta;
 	private Map<String, Stanza> nome2stanza;
 
-	public LabirintoBuilder() {
-		this.labirinto = new Labirinto();
+	public LabirintoBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+		this.labirinto = new Labirinto(labirinto);
 		this.nome2stanza = new HashMap<String, Stanza>();
 	}
 	
@@ -56,7 +54,7 @@ public class LabirintoBuilder {
 		return this;
 	}
 
-	public LabirintoBuilder addAdiacenza(String stanzaCorrente, String stanzaAdiacente, String direzione) {
+	public LabirintoBuilder addAdiacenza(String stanzaCorrente, String stanzaAdiacente, Direzione direzione) {
 		Stanza c = this.nome2stanza.get(stanzaCorrente);
 		Stanza a = this.nome2stanza.get(stanzaAdiacente);
 		c.impostaStanzaAdiacente(direzione, a);
@@ -75,11 +73,13 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
-	public LabirintoBuilder addStanzaBloccata(String nome, String attrezzoSbloccante, String direzioneBloccata) {
+	public LabirintoBuilder addStanzaBloccata(String nome, String attrezzoSbloccante, Direzione direzioneBloccata) {
 		Stanza stanza = new StanzaBloccata(nome, direzioneBloccata, attrezzoSbloccante);
 		this.UltimaStanzaAggiuntaEAggiorna(stanza);
 		return this;
 	}
+	
+	public LabirintoBuilder addPersonaggio;;;
 	
 	public void UltimaStanzaAggiuntaEAggiorna(Stanza stanza) {
 		this.ultimaStanzaAggiunta = stanza;

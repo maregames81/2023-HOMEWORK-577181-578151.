@@ -8,6 +8,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
  * Per giocare crea un'istanza di questa classe e invoca il letodo gioca
@@ -41,7 +42,7 @@ public class DiaDia {
 		this.partita = new Partita(labirinto,IO);
 	}
 
-	public void gioca() {
+	public void gioca() throws Exception {
 		String istruzione; 
 		this.getPartita().getIO().mostraMessaggio(MESSAGGIO_BENVENUTO);
 
@@ -59,11 +60,12 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
+	 * @throws Exception 
 	 */
 
-	private boolean processaIstruzione(String istruzione) {
+	private boolean processaIstruzione(String istruzione) throws Exception {
 		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva();
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
@@ -77,9 +79,10 @@ public class DiaDia {
 	}
 
 
-	public static void main(String[] argc) {
+	public static void main(String[] argc) throws Exception {
 		IO io = new IOConsole();
-		Labirinto mappa = new LabirintoBuilder()
+		Labirinto mappa = Labirinto.newBuilder("labirinto.txt").getLabirinto(); 
+		/*new LabirintoBuilder()
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("osso", 1)
 				.addAttrezzo("secchio", 3)
@@ -103,6 +106,7 @@ public class DiaDia {
 				.addAdiacenza("Laboratorio", "Aula N11", "ovest")
 				.addAdiacenza("Biblioteca", "Atrio", "sud")
 				.getLabirinto(); 
+				*/
 		DiaDia gioco = new DiaDia(mappa,io);
 		gioco.gioca();
 

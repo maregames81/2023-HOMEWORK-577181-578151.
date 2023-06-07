@@ -2,11 +2,11 @@ package it.uniroma3.diadia.ambienti;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -21,13 +21,13 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Stanza {
 
-	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	static final public int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
 	private Map<String,Attrezzo> attrezzi;
 	private int numeroAttrezzi;
-	private Map<String,Stanza> stanzeAdiacenti;
+	private Map<Direzione,Stanza> stanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
 
 
 
@@ -40,6 +40,8 @@ public class Stanza {
 		this.numeroAttrezzi = 0;
 		this.stanzeAdiacenti = new HashMap<>();
 		this.attrezzi = new HashMap<>();
+		
+		
 	}
 
 	/**
@@ -48,8 +50,7 @@ public class Stanza {
 	 * @param direzione direzione in cui sara' posta la stanza adiacente.
 	 * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
 	 */
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-		if(direzione.equals("nord")||direzione.equals("sud")||direzione.equals("est")||direzione.equals("ovest"))
+	public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
 		this.stanzeAdiacenti.put(direzione, stanza);
 	}
 
@@ -59,7 +60,7 @@ public class Stanza {
 	 * @param direzione
 	 */
 
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		return this.stanzeAdiacenti.get(direzione);
 	}
 
@@ -70,6 +71,10 @@ public class Stanza {
 	 */
 	public String getNome() {
 		return this.nome;
+	}
+	
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
 	}
 
 	/**
@@ -119,6 +124,8 @@ public class Stanza {
 		risultato.append(this.getDirezioni().toString());
 		risultato.append("\nAttrezzi nella stanza: ");
 		risultato.append(this.getAttrezzi().toString());
+		risultato.append("\nPersonaggio:");
+		risultato.append(this.getPersonaggio().toString());
 		return risultato.toString();
 	}
 
@@ -153,13 +160,19 @@ public class Stanza {
 		}
 		else return false;
 	}
+	
+	
 
 
-	public Set<String> getDirezioni() {
+	public void setPersonaggio(AbstractPersonaggio personaggio) {
+		this.personaggio = personaggio;
+	}
+
+	public Set<Direzione> getDirezioni() {
 		return this.stanzeAdiacenti.keySet();
 	}
 
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzione, Stanza> getMapStanzeAdiacenti() {
 		
 		return stanzeAdiacenti;
 	}

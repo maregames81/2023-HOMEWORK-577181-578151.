@@ -9,9 +9,10 @@ public class IOConsole implements IO {
 
 
 	public String leggiRiga() {
-		Scanner scannerDiLinee = new Scanner(System.in);
-		String riga = scannerDiLinee.nextLine();
-		return riga;
+		try (Scanner scannerDiLinee = new Scanner(System.in)) {
+			String riga = scannerDiLinee.nextLine();
+			return riga;
+		}
 	}
 
 }
